@@ -50,8 +50,8 @@
 
 #include "dialog.h"
 #include "core.h"
-#include "../shared/websocketclientwrapper.h"
-#include "../shared/websockettransport.h"
+#include "shared/websocketclientwrapper.h"
+#include "shared/websockettransport.h"
 
 #include <QApplication>
 #include <QDesktopServices>
@@ -61,12 +61,15 @@
 #include <QUrl>
 #include <QWebChannel>
 #include <QWebSocketServer>
+#include <QDebug>
 
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
 
     QFileInfo jsFileInfo(QDir::currentPath() + "/qwebchannel.js");
+
+    qDebug() << "QDir::currentPath()" << QDir::currentPath();
 
     if (!jsFileInfo.exists())
         QFile::copy(":/qtwebchannel/qwebchannel.js",jsFileInfo.absoluteFilePath());
@@ -95,6 +98,7 @@ int main(int argc, char** argv)
 
     // open a browser window with the client HTML page
     QUrl url = QUrl::fromLocalFile(BUILD_DIR "/index.html");
+    qDebug() << "BUILD_DIR: " << BUILD_DIR;
     QDesktopServices::openUrl(url);
 
     dialog.displayMessage(Dialog::tr("Initialization complete, opening browser at %1.").arg(url.toDisplayString()));

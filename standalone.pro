@@ -19,10 +19,13 @@ FORMS += \
 
 DEFINES += "BUILD_DIR=\"\\\""$$OUT_PWD"\\\"\""
 
-# exampleassets.files += \
-#     index.html
-# exampleassets.path = $$[QT_INSTALL_EXAMPLES]/webchannel/standalone
-# include(../exampleassets.pri)
+# DEFINES += QT_DEPRECATED_WARNINGS
 
-# target.path = $$[QT_INSTALL_EXAMPLES]/webchannel/standalone
-INSTALLS += target
+exampleassets.files += \
+    index.html
+# exampleassets.path = $$[QT_INSTALL_EXAMPLES]/webchannel/standalone
+exampleassets.path = standalone
+include(exampleassets.pri)
+
+target.path = standalone
+# INSTALLS += target
