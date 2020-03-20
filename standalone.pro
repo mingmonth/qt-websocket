@@ -18,6 +18,7 @@ FORMS += \
     dialog.ui
 
 DEFINES += "BUILD_DIR=\"\\\""$$OUT_PWD"\\\"\""
+DEFINES += "PWD_DIR=\"\\\""$$PWD"\\\"\""
 
 # DEFINES += QT_DEPRECATED_WARNINGS
 

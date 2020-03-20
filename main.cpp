@@ -70,13 +70,19 @@ int main(int argc, char** argv)
     QFileInfo jsFileInfo(QDir::currentPath() + "/qwebchannel.js");
 
     qDebug() << "QDir::currentPath()" << QDir::currentPath();
+    qDebug() << "jsFileInfo.absoluteFilePath()" << jsFileInfo.absoluteFilePath();
+    qDebug() << "PWD_DIR: " << PWD_DIR;
 
-    if (!jsFileInfo.exists())
+    if (!jsFileInfo.exists()) {
+        qDebug() << "jsFileInfo.exists()" << jsFileInfo.exists();
+        // https://doc.qt.io/qt-5/qtwebchannel-javascript.html 이곳에서 qwebchannel 을 로드해서 빌드 경로로 복사함.
         QFile::copy(":/qtwebchannel/qwebchannel.js",jsFileInfo.absoluteFilePath());
+    }
 
     // setup the QWebSocketServer
-    QWebSocketServer server(QStringLiteral("QWebChannel Standalone Example Server"), QWebSocketServer::NonSecureMode);
-    if (!server.listen(QHostAddress::LocalHost, 12345)) {
+    QWebSocketServer server(QStringLiteral("QWebChannel 테스트 Example Server"), QWebSocketServer::NonSecureMode);
+    //if (!server.listen(QHostAddress::LocalHost, 12345)) {
+    if (!server.listen(QHostAddress::Any, 12345)) {
         qFatal("Failed to open web socket server.");
         return 1;
     }
