@@ -96,10 +96,13 @@ int main(int argc, char** argv)
                      &channel, &QWebChannel::connectTo);
 
     // setup the UI
-    Dialog dialog;
+    //Dialog dialog;
+
+    //WebSocketTransport* socket = clientWrapper.getSocket();
 
     // setup the core and publish it to the QWebChannel
-    Core core(&dialog);
+    //Core core(&dialog);
+    Core core;
     channel.registerObject(QStringLiteral("core"), &core);
 
     // open a browser window with the client HTML page
@@ -107,8 +110,8 @@ int main(int argc, char** argv)
     qDebug() << "BUILD_DIR: " << BUILD_DIR;
     QDesktopServices::openUrl(url);
 
-    dialog.displayMessage(Dialog::tr("Initialization complete, opening browser at %1.").arg(url.toDisplayString()));
-    dialog.show();
+    //dialog.displayMessage(Dialog::tr("Initialization complete, opening browser at %1.").arg(url.toDisplayString()));
+    //dialog.show();
 
     return app.exec();
 }

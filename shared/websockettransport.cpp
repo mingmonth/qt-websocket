@@ -76,6 +76,8 @@ WebSocketTransport::WebSocketTransport(QWebSocket *socket)
             this, &WebSocketTransport::textMessageReceived);
     connect(socket, &QWebSocket::disconnected,
             this, &WebSocketTransport::deleteLater);
+//    connect(socket, &QWebSocket::textMessageReceived,
+//            this, &WebSocketTransport::sendMessage2);
 }
 
 /*!
@@ -95,13 +97,29 @@ void WebSocketTransport::sendMessage(const QJsonObject &message)
     m_socket->sendTextMessage(QString::fromUtf8(doc.toJson(QJsonDocument::Compact)));
 }
 
+//void WebSocketTransport::sendMessage2(const QString &message)
+//{
+//    //QJsonDocument doc(message);
+//    qDebug() << "sendMesage2";
+//    m_socket->sendTextMessage(message);
+//}
+
 /*!
     Deserialize the stringified JSON messageData and emit messageReceived.
 */
 void WebSocketTransport::textMessageReceived(const QString &messageData)
 {
+//    QWebSocket *pClient = qobject_cast<QWebSocket *>(sender());
+//    if(pClient) {
+//        pClient->sendTextMessage(messageData);
+//    }
+    qDebug() << "messageData: " << messageData;
     QJsonParseError error;
     QJsonDocument message = QJsonDocument::fromJson(messageData.toUtf8(), &error);
+    qDebug() << "message: " << message;
+    qDebug() << "message.object(): " << message.object();
+    //sendMessage(message.object());
+    emit sendMessage2(messageData);
     if (error.error) {
         qWarning() << "Failed to parse text message as JSON object:" << messageData
                    << "Error is:" << error.errorString();

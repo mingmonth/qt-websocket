@@ -52,6 +52,7 @@
 #define CORE_H
 
 #include "dialog.h"
+#include "shared/websocketclientwrapper.h"
 #include <QObject>
 
 /*
@@ -62,10 +63,16 @@ class Core : public QObject
     Q_OBJECT
 
 public:
-    Core(Dialog *dialog, QObject *parent = nullptr)
-        : QObject(parent), m_dialog(dialog)
-    {
-        connect(dialog, &Dialog::sendText, this, &Core::sendText);
+//    Core(Dialog *dialog, QObject *parent = nullptr)
+//        : QObject(parent), m_dialog(dialog)
+//    {
+//        connect(dialog, &Dialog::sendText, this, &Core::sendText);
+//        //connect(websocket, &WebSocketClientWrapper::sendMessage2, this, &Core::sendText);
+//        //connect()
+//    }
+
+    Core(QObject *parent = nullptr)
+        : QObject(parent) {
     }
 
 signals:
@@ -81,11 +88,14 @@ public slots:
     */
     void receiveText(const QString &text)
     {
-        m_dialog->displayMessage(Dialog::tr("Received message: %1").arg(text));
+        //m_dialog->displayMessage(Dialog::tr("Received message: %1").arg(text));
+        if(text == "abc") {
+            emit sendText("def");
+        }
     }
 
 private:
-    Dialog *m_dialog;
+    //Dialog *m_dialog;
 };
 
 #endif // CORE_H

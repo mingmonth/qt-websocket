@@ -65,15 +65,18 @@ class WebSocketClientWrapper : public QObject
 
 public:
     WebSocketClientWrapper(QWebSocketServer *server, QObject *parent = nullptr);
+    //WebSocketTransport* getSocket();
 
 signals:
     void clientConnected(WebSocketTransport *client);
+    void sendMessage2(const QString &message);
 
 private slots:
     void handleNewConnection();
 
 private:
     QWebSocketServer *m_server;
+    WebSocketTransport *m_socket;
 };
 
 #endif // WEBSOCKETCLIENTWRAPPER_H

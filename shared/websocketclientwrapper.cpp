@@ -72,7 +72,7 @@ WebSocketClientWrapper::WebSocketClientWrapper(QWebSocketServer *server, QObject
     , m_server(server)
 {
     connect(server, &QWebSocketServer::newConnection,
-            this, &WebSocketClientWrapper::handleNewConnection);
+            this, &WebSocketClientWrapper::handleNewConnection);    
 }
 
 /*!
@@ -80,5 +80,10 @@ WebSocketClientWrapper::WebSocketClientWrapper(QWebSocketServer *server, QObject
 */
 void WebSocketClientWrapper::handleNewConnection()
 {
-    emit clientConnected(new WebSocketTransport(m_server->nextPendingConnection()));
+    m_socket = new WebSocketTransport(m_server->nextPendingConnection());
+    emit clientConnected(m_socket);
 }
+
+//WebSocketTransport* WebSocketClientWrapper::getSocket() {
+//    return m_socket;
+//}
